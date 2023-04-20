@@ -59,6 +59,7 @@ export default {
     autoGenerateColors() {
       const [color1] = this.colorList
       const newColorList = generateColors(color1)
+      console.log(newColorList)
       this.colorList = newColorList
       this.onColorChange()
     }

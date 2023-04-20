@@ -24,8 +24,8 @@ export default {
   data() {
     return {
       gradient: null,
-      meshId: 0,
-      colors: ["#ff4d4d", "#fff2db", "#fbff1a", "#ff7024"],
+      meshId: 616,
+      colors: ['#0099ff', '#8489ff', '#bd76f0', '#e26abc'],
       imgUrl: '',
     }
   },
@@ -68,11 +68,6 @@ export default {
       const canvas = this.$refs.canvas
       const url = canvas.toDataURL()
       this.imgUrl = url
-      // const downloadLink = document.createElement('a');
-      // downloadLink.href = url;
-      // downloadLink.target = '__blank'
-      // downloadLink.download = `surreal_${this.meshId}.png`;
-      // downloadLink.click()
     },
     closePreview() {
       this.imgUrl = ''
