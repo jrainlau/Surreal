@@ -4,7 +4,9 @@ import {
   initMesh,
 } from './mesh'
 
-class Gradient {
+const BASE_MESH_ID = 1263106
+
+export default class Gradient {
   constructor(...t) {
     this.angle = 0
     this.freqDelta = 1e-5
@@ -12,7 +14,7 @@ class Gradient {
     this.freqY = 29e-5
     this.height = 600
     this.seed = 5
-    this.t = 1263106
+    this.t = BASE_MESH_ID
     this.width = void 0
     this.xSegCount = void 0
     this.ySegCount = void 0
@@ -26,8 +28,7 @@ class Gradient {
     this.material = void 0
     this.mesh = void 0
     this.minigl = void 0
-    this.minWidth = 1111
-    this.amp = 320
+    this.amp = 100
     this.activeColors = [1, 1, 1, 1]
 
     this.shaderFiles = {
@@ -53,16 +54,6 @@ class Gradient {
     this.initMaterial = initMaterial.bind(this)
     this.initMesh = initMesh.bind(this)
   }
-  resize() {
-    this.width = window.innerWidth
-    this.minigl.setSize(this.width, this.height)
-    this.minigl.setOrthographicCamera()
-    this.xSegCount = Math.ceil(this.width * this.conf.density[0])
-    this.ySegCount = Math.ceil(this.height * this.conf.density[1])
-    this.mesh.geometry.setTopology(this.xSegCount, this.ySegCount)
-    this.mesh.geometry.setSize(this.width, this.height)
-    this.mesh.material.uniforms.u_shadow_power.value = this.width < 600 ? 5 : 6
-  }
   animate(e) {
     this.t += 100
     this.mesh.material.uniforms.u_time.value = this.t
@@ -74,10 +65,14 @@ class Gradient {
     }
   }
 
-  render(meshId = 0) {
-    this.t = 1263106 + meshId * 1000
+  render(distance) {
+    this.t += distance * 1000
     this.mesh.material.uniforms.u_time.value = this.t
     this.minigl.render()
+  }
+
+  getMeshId() {
+    return Number(((this.t - BASE_MESH_ID) / 1000).toFixed(0))
   }
 
   pause() {
@@ -88,21 +83,19 @@ class Gradient {
     this.animate()
     this.conf.playing = true
   }
-  initGradient(selector) {
-    this.el = document.querySelector(selector)
-    this.connect()
-  }
-  init() {
-    this.initGradientColors()
+  initGradient({ el, colors, meshId }) {
+    this.el = el
+    this.minigl = new MiniGl(this.el, null, null, !0)
+    this.initGradientColors(colors)
     this.initMesh()
     this.resize()
     // this.animate()
-    this.render()
+    this.render(meshId)
   }
   /*
    * Initializes the four section colors by retrieving them from css variables.
    */
-  initGradientColors(colors = ["#0099ff", "#03441c", "#fff000", "#ff0000"]) {
+  initGradientColors(colors) {
     this.sectionColors = colors
       .map((hex) => {
         return hex && `0x${hex.substr(1)}`
@@ -110,13 +103,16 @@ class Gradient {
       .map(normalizeColor)
   }
 
-  async connect() {    
-    if (document.querySelectorAll("canvas").length < 1) {
-      console.log("DID NOT LOAD HERO STRIPE CANVAS")
-      return
-    }
-    this.minigl = new MiniGl(this.el, null, null, !0)
-    this.init()
+  resize() {
+    this.width = window.innerWidth
+    this.height = window.innerHeight
+    this.minigl.setSize(this.width, this.height)
+    this.minigl.setOrthographicCamera()
+    this.xSegCount = Math.ceil(this.width * this.conf.density[0])
+    this.ySegCount = Math.ceil(this.height * this.conf.density[1])
+    this.mesh.geometry.setTopology(this.xSegCount, this.ySegCount)
+    this.mesh.geometry.setSize(this.width, this.height)
+    this.mesh.material.uniforms.u_shadow_power.value = this.width < 600 ? 5 : 6
   }
 }
 
@@ -131,5 +127,5 @@ function normalizeColor(hexCode) {
 
 
 
-window.gradient = new Gradient()
-window.gradient.initGradient("#gradient-canvas")
+// window.gradient = new Gradient()
+// window.gradient.initGradient("#gradient-canvas")
