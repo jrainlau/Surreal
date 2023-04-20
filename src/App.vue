@@ -24,25 +24,33 @@ export default {
   data() {
     return {
       gradient: null,
-      meshId: 616,
+      canvas: null,
+      meshId: 759,
       colors: ['#0099ff', '#8489ff', '#bd76f0', '#e26abc'],
       imgUrl: '',
     }
   },
   mounted() {
     this.gradient = new Gradient()
-    const canvas = this.$refs.canvas
+    this.canvas = this.$refs.canvas
     this.gradient.initGradient({
-      el: canvas,
+      el: this.canvas,
       colors: this.colors,
       meshId: this.meshId
     })
     window.gradient = this.gradient
 
-    canvas.addEventListener('touchstart', this.onTouchstart)
-    canvas.addEventListener('touchmove', this.onTouchMove)
+    this.bindEvents()
   },
   methods: {
+    bindEvents() {
+      this.canvas.addEventListener('touchstart', this.onTouchstart)
+      this.canvas.addEventListener('touchmove', this.onTouchMove)
+    },
+    unbindEvents() {
+      this.canvas.removeEventListener('touchstart', this.onTouchstart)
+      this.canvas.removeEventListener('touchmove', this.onTouchMove)
+    },
     onTouchStart(e) {
       e.preventDefault()
       startX = e.touches[0].pageX
@@ -65,12 +73,14 @@ export default {
       this.gradient?.changeColor(colors)
     },
     onExportImage() {
+      this.unbindEvents()
       const canvas = this.$refs.canvas
       const url = canvas.toDataURL()
       this.imgUrl = url
     },
     closePreview() {
       this.imgUrl = ''
+      this.bindEvents()
     }
   }
 }
