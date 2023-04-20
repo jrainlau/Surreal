@@ -6,6 +6,7 @@ export default class MiniGl {
     ;(_miniGl.canvas = canvas),
       (_miniGl.gl = _miniGl.canvas.getContext("webgl", {
         antialias: true,
+        preserveDrawingBuffer: true,
       })),
       (_miniGl.meshes = [])
     const context = _miniGl.gl

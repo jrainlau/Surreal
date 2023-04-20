@@ -7,7 +7,8 @@ body {
 * {
   user-select: none;
   -webkit-user-select: none;
-  -webkit-touch-callout: none;
+  // -webkit-touch-callout: none;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 #app {
@@ -16,3 +17,32 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+
+:root {
+  --consoleBg: #212529;
+  --downloadBg: rgba(255, 255, 255, 0.3);
+  --borderColor: rgba(255, 255, 255, 0.8);
+  --borderColorActive: rgba(255, 255, 255, 0.8);
+  --textPrimary: #ebebeb;
+  --textSecondary: #bab7b7;
+}
+
+// @media (prefers-color-scheme: dark) {
+//   :root {
+//     --consoleBg: #212529;
+//     --downloadBg: rgba(255, 255, 255, 0.4);
+//     --borderColor: rgba(255, 255, 255, 0.4);
+//     --borderColorActive: rgba(255, 255, 255, 0.8);
+//     --textPrimary: #ebebeb;
+//   }
+// }
+
+// @media (prefers-color-scheme: light) {
+//   :root {
+//     --consoleBg: #f2f2f2;
+//     --downloadBg: rgba(0, 0, 0, 0.4);
+//     --borderColor: rgba(0, 0, 0, 0.4);
+//     --borderColorActive: rgba(0, 0, 0, 0.8);
+//     --textPrimary: #333;
+//   }
+// }

@@ -12,10 +12,10 @@ export default class Gradient {
     this.freqDelta = 1e-5
     this.freqX = 14e-5
     this.freqY = 29e-5
-    this.height = 600
+    this.width = void 0
+    this.height = void 0
     this.seed = 5
     this.t = BASE_MESH_ID
-    this.width = void 0
     this.xSegCount = void 0
     this.ySegCount = void 0
     this.sectionColors = void 0
@@ -43,11 +43,8 @@ export default class Gradient {
     }
 
     this.conf = {
-      presetName: "",
       wireframe: false,
       density: [0.06, 0.16],
-      zoom: 1,
-      rotation: 0,
       playing: true,
     }
 
@@ -65,7 +62,7 @@ export default class Gradient {
     }
   }
 
-  render(distance) {
+  render(distance = 0) {
     this.t += distance * 1000
     this.mesh.material.uniforms.u_time.value = this.t
     this.minigl.render()
@@ -73,6 +70,19 @@ export default class Gradient {
 
   getMeshId() {
     return Number(((this.t - BASE_MESH_ID) / 1000).toFixed(0))
+  }
+
+  setMeshId(meshId) {
+    this.t = BASE_MESH_ID + meshId * 1000
+    this.mesh.material.uniforms.u_time.value = this.t
+    this.minigl.render()
+  }
+
+  changeColor(colors = []) {
+    this.initGradientColors(colors)
+    this.initMesh()
+    this.resize()
+    this.render()
   }
 
   pause() {
@@ -90,7 +100,7 @@ export default class Gradient {
     this.initMesh()
     this.resize()
     // this.animate()
-    this.render(meshId)
+    this.setMeshId(meshId)
   }
   /*
    * Initializes the four section colors by retrieving them from css variables.
