@@ -29,7 +29,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #333;
   background-size: cover;
   background-position: center;
   padding: 15px;
