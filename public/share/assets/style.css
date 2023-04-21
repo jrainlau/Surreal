@@ -1,0 +1,82 @@
+@font-face {
+  font-family: Pathway Extreme;
+  src: url('./PathwayExtreme-VariableFont_opsz\,wdth\,wght.ttf');
+}
+
+* {
+  font-family: Pathway Extreme;
+}
+
+html,
+body {
+  /* background-color: black; */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: env(safe-area-inset-top);
+  color: #333;
+}
+
+.preview {
+  width: 95vw;
+  height: 95vw;
+  position: relative;
+  margin: 15px 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #333;
+  background-size: cover;
+  background-position: center;
+  padding: 15px;
+  box-sizing: border-box;
+}
+.preview .title {
+  margin-right: 15px;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+.preview .theme-name {
+  position: absolute;
+  left: 5%;
+  font-size: 32px;
+  font-family: PingFangSC-Light, sans-serif;
+}
+
+.preview .title.light,
+.preview .theme-name.light {
+  color: #ebebeb;
+}
+
+.preview .device {
+  position: relative;
+  transform: translateX(60%);
+  width: 45%;
+  height: fit-content;
+  position: relative;
+}
+.preview .device .phone {
+  width: 100%;
+  position: relative;
+  z-index: 20;
+}
+.preview .device .real-bg {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 6px;
+  border-radius: 18px;
+  z-index: 10;
+  background-size: cover;
+  background-position: center;
+  /* background-color: pink; */
+}

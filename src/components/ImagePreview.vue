@@ -2,7 +2,7 @@
   <div class="preview-mask" @click="closePreview">
     <div class="preview">
       <img :src="url">
-      <div>Long press to save this wallpaper</div>
+      <div>Long press to save</div>
     </div>
   </div>
 </template>
